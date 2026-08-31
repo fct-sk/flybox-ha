@@ -42,7 +42,19 @@ The integration currently provides switches for:
 
 ### HACS
 
-HACS installation instructions will be added after the repository is published.
+1. Open HACS in Home Assistant.
+2. Open **Custom repositories**.
+3. Add:
+
+   `https://github.com/fct-sk/flybox-ha`
+
+4. Select **Integration** as the repository type.
+5. Search for **Orange Flybox** in HACS.
+6. Download the latest release.
+7. Restart Home Assistant.
+8. Go to **Settings → Devices & services → Add integration**.
+9. Search for **Orange Flybox**.
+10. Enter the router address, username and password.
 
 ### Manual installation
 
