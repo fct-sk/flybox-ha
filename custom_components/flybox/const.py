@@ -1,0 +1,8 @@
+DOMAIN = "flybox"
+
+DEFAULT_HOST = "192.168.1.1"
+DEFAULT_SCAN_INTERVAL = 5
+
+CONF_HOST = "host"
+CONF_USERNAME = "username"
+CONF_PASSWORD = "password"
