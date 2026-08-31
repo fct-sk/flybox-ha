@@ -5,7 +5,7 @@
   "documentation": "https://github.com/fct-sk/flybox-ha",
   "issue_tracker": "https://github.com/fct-sk/flybox-ha/issues",
   "requirements": [],
-  "codeowners": [],
+  "codeowners": ["@fct-sk"],
   "config_flow": true,
   "iot_class": "local_polling"
 }
