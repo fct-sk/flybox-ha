@@ -18,7 +18,8 @@ FLYBOX_KEYS = [
     "mnet_ca_status",
     "cm_display_type",
     "mnet_operator_name",
-
+    "dialup_dataswitch",
+    "wifi_bandsteer_enable_state",
     "statistics_data_used",
     "statistics_used_tx",
     "statistics_data_used_r",

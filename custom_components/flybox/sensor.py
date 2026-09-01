@@ -110,8 +110,17 @@ async def async_setup_entry(
                 coordinator,
                 entry,
             ),
+            FlyboxRoamingDownloadSensor(
+                coordinator,
+                entry,
+            ),
+            FlyboxRoamingUploadSensor(
+                coordinator,
+                entry,
+            ),
         ]
     )
+
     entities.append(
         FlyboxRateSensor(
             coordinator,
@@ -307,6 +316,72 @@ class FlyboxUploadSensor(FlyboxBaseSensor):
     def native_value(self):
         value = self.coordinator.data.get(
             "statistics_used_tx"
+        )
+
+        if value is None:
+            return None
+
+        try:
+            return round(
+                float(value) / 1_000_000_000,
+                2,
+            )
+        except (TypeError, ValueError):
+            return None
+
+class FlyboxRoamingDownloadSensor(FlyboxBaseSensor):
+    def __init__(self, coordinator, entry):
+        super().__init__(
+            coordinator,
+            entry,
+            "roaming_download_data",
+            "Roaming Download",
+        )
+
+        self._attr_icon = "mdi:download-network"
+        self._attr_native_unit_of_measurement = "GB"
+        self._attr_device_class = SensorDeviceClass.DATA_SIZE
+
+    @property
+    def native_value(self):
+        total = self.coordinator.data.get(
+            "statistics_data_used_r"
+        )
+        upload = self.coordinator.data.get(
+            "statistics_used_tx_r"
+        )
+
+        if total is None or upload is None:
+            return None
+
+        try:
+            download = float(total) - float(upload)
+
+            return round(
+                download / 1_000_000_000,
+                2,
+            )
+        except (TypeError, ValueError):
+            return None
+
+
+class FlyboxRoamingUploadSensor(FlyboxBaseSensor):
+    def __init__(self, coordinator, entry):
+        super().__init__(
+            coordinator,
+            entry,
+            "statistics_used_tx_r",
+            "Roaming Upload",
+        )
+
+        self._attr_icon = "mdi:upload-network"
+        self._attr_native_unit_of_measurement = "GB"
+        self._attr_device_class = SensorDeviceClass.DATA_SIZE
+
+    @property
+    def native_value(self):
+        value = self.coordinator.data.get(
+            "statistics_used_tx_r"
         )
 
         if value is None:
