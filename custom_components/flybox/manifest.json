@@ -1,7 +1,7 @@
 {
   "domain": "flybox",
   "name": "Orange Flybox",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "documentation": "https://github.com/fct-sk/flybox-ha",
   "issue_tracker": "https://github.com/fct-sk/flybox-ha/issues",
   "requirements": [],
