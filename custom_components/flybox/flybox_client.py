@@ -262,6 +262,7 @@ class FlyboxClient:
             response = self.session.post(
                 self.base_url + "/action/router_get_hosts_info",
                 headers=self.headers,
+                json={},
                 timeout=10,
             )
 
@@ -270,6 +271,7 @@ class FlyboxClient:
                 response = self.session.post(
                     self.base_url + "/action/router_get_hosts_info",
                     headers=self.headers,
+                    json={},
                     timeout=10,
                 )
 
