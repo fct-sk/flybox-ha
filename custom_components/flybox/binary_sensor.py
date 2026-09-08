@@ -28,10 +28,6 @@ async def async_setup_entry(
                 coordinator,
                 entry,
             ),
-            FlyboxRoamingBinarySensor(
-                coordinator,
-                entry,
-            ),
             FlyboxBandSteeringBinarySensor(
                 coordinator,
                 entry,
@@ -112,40 +108,6 @@ class FlyboxMobileDataBinarySensor(
         return (
             self.coordinator.data.get(
                 "dialup_dataswitch"
-            )
-            == "on"
-        )
-
-class FlyboxRoamingBinarySensor(
-    CoordinatorEntity,
-    BinarySensorEntity,
-):
-    def __init__(
-        self,
-        coordinator,
-        entry,
-    ):
-        super().__init__(coordinator)
-
-        self._attr_name = "Flybox Roaming"
-        self._attr_unique_id = (
-            f"{entry.entry_id}_roaming"
-        )
-
-        self._attr_device_info = {
-            "identifiers": {
-                (DOMAIN, entry.entry_id)
-            },
-            "name": "Orange Flybox",
-            "manufacturer": "MeiG",
-            "model": "SRT858M",
-        }
-
-    @property
-    def is_on(self):
-        return (
-            self.coordinator.data.get(
-                "mnet_roam_status"
             )
             == "on"
         )

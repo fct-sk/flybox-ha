@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Roaming switch, replacing the read-only Roaming binary sensor.
+
 ## 0.1.3
 
 ### Added

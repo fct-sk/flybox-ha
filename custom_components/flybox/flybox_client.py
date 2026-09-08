@@ -304,6 +304,41 @@ class FlyboxClient:
 
             return data.get("data", {})
 
+    def set_roaming_state(self, enabled):
+        value = "on" if enabled else "off"
+
+        payload = {
+            "dialup_roamswitch": value,
+        }
+
+        response = self.session.post(
+            self.base_url + "/action/dialup_set_roamswitch",
+            json=payload,
+            headers=self.headers,
+            timeout=10,
+        )
+
+        if response.status_code == 403:
+            self.login()
+            response = self.session.post(
+                self.base_url + "/action/dialup_set_roamswitch",
+                json=payload,
+                headers=self.headers,
+                timeout=10,
+            )
+
+        response.raise_for_status()
+        self._update_csrf(response)
+
+        data = response.json()
+
+        if str(data.get("retcode")) != "0":
+            raise RuntimeError(
+                f"Flybox set_roaming_state zlyhal: {data}"
+            )
+
+        return data
+
     def set_wifi_state(self, key, enabled):
         value = "ap_enable" if enabled else "ap_disable"
 

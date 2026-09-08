@@ -37,6 +37,11 @@ async def async_setup_entry(
                 "wifi_state_2",
                 "Wi-Fi 5 GHz",
             ),
+            FlyboxRoamingSwitch(
+                coordinator,
+                client,
+                entry,
+            ),
         ]
     )
 
@@ -90,6 +95,55 @@ class FlyboxWifiSwitch(
         await self.hass.async_add_executor_job(
             self.client.set_wifi_state,
             self._key,
+            False,
+        )
+        await self.coordinator.async_request_refresh()
+
+
+class FlyboxRoamingSwitch(
+    CoordinatorEntity,
+    SwitchEntity,
+):
+    def __init__(
+        self,
+        coordinator,
+        client,
+        entry,
+    ):
+        super().__init__(coordinator)
+
+        self.client = client
+
+        self._attr_name = "Flybox Roaming"
+        self._attr_unique_id = f"{entry.entry_id}_roaming_switch"
+        self._attr_icon = "mdi:earth"
+
+        self._attr_device_info = {
+            "identifiers": {
+                (DOMAIN, entry.entry_id)
+            },
+            "name": "Orange Flybox",
+            "manufacturer": "MeiG",
+            "model": "SRT858M",
+        }
+
+    @property
+    def is_on(self):
+        return (
+            self.coordinator.data.get("mnet_roam_status")
+            == "on"
+        )
+
+    async def async_turn_on(self, **kwargs):
+        await self.hass.async_add_executor_job(
+            self.client.set_roaming_state,
+            True,
+        )
+        await self.coordinator.async_request_refresh()
+
+    async def async_turn_off(self, **kwargs):
+        await self.hass.async_add_executor_job(
+            self.client.set_roaming_state,
             False,
         )
         await self.coordinator.async_request_refresh()

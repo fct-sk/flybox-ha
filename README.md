@@ -30,13 +30,14 @@ Other firmware versions or related Flybox models may work, but are not yet verif
 - Connected Wi-Fi clients
 - List of connected LAN/Wi-Fi devices
 
-## Wi-Fi control
+## Switches
 
 The integration currently provides switches for:
 
 - Main 2.4 GHz Wi-Fi
 - Guest 2.4 GHz Wi-Fi
 - Main 5 GHz Wi-Fi
+- Roaming
 
 ## Installation
 
